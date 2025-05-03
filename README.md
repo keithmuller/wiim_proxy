@@ -130,7 +130,7 @@ http://$ip:$port/input/line-in
 
 http://$ip:$port/input/wifi 
 
-(command directly above also works with ethernet conneted wiims)
+(command directly above also works with ethernet connected wiims)
 
 http://$ip:$port/input/hdmi
 
