@@ -110,15 +110,15 @@ http://$ip:$port/media/next
 
 (***$int*** below must be between 0 and 100)
     
-http://$ip:$port/volume/up
+http://$ip:$port/vol/up
 
-http://$ip:$port/volume/up/$int
+http://$ip:$port/vol/up/$int
 
-http://$ip:$port/volume/down
+http://$ip:$port/vol/down
 
-http://$ip:$port/volume/down/$int
+http://$ip:$port/vol/down/$int
 
-http://$ip:$port/volume/$int
+http://$ip:$port/vol/$int
 
 http://$ip:$port/mute/on
 
