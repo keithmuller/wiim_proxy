@@ -58,13 +58,13 @@ def media_next():
 
 # volume control commands
 
-@app.route("/vol/up", defaults={"amount": 6})
+@app.route("/vol/up", defaults={"amount": 2})
 @app.route("/vol/up/<int:amount>")
 def volume_up(amount):
     wiim_device.volume_up(amount)
     return "OK"
 
-@app.route("/vol/down", defaults={"amount": 6})
+@app.route("/vol/down", defaults={"amount": 2})
 @app.route("/vol/down/<int:amount>")
 def volume_down(amount):
     wiim_device.volume_down(amount)
