@@ -152,6 +152,8 @@ http://$ip:$port/output/bluetooth
 
 http://$ip:$port/output/dlna
 
+***$int*** preset below must be between 1 and 12 inclusive
+
 http://$ip:$port/preset/$int
 
 wiim_proxy is backwards compatible with the published Wiim API.
