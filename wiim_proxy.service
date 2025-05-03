@@ -1,0 +1,10 @@
+[Unit]
+Description=uWSGI Instance
+After=syslog.target
+[Service]
+User=www-data
+WorkingDirectory=/opt/wiim_proxy
+ExecStart=/usr/bin/uwsgi --ini /opt/wiim_proxy/wiim_proxy.ini
+Restart=always
+[Install]
+WantedBy=multi-user.target
