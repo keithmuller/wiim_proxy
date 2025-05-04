@@ -45,8 +45,21 @@ class WiimDevice:
     def set_bluetooth_in(self):
         self.run_command("setPlayerCmd:switchmode:bluetooth")
 
-    def media_play_url(self, url):
-        self.run_command("setPlayerCmd:play:{0}".format(url))
+    # mimic the step input button on the remote
+    # you can edit this list to only step through the inputs you have connected
+
+    def step_in(self):
+        switch_dict = {
+            10: self.set_bluetooth_in,
+            41: self.set_hdmi_in,
+            49: self.set_line_in,
+            40: self.set_optical_in,
+            43: self.set_phono_in,
+            54: self.set_wifi_in
+        }
+        status = self.get_player_status()
+        mode = int(status["mode"])
+        switch_dict.get(mode, self.set_wifi_in)()
 
     # Change output
 
@@ -73,8 +86,17 @@ class WiimDevice:
     def media_play(self):
         self.run_command("setPlayerCmd:play")
 
+    def media_play_url(self, url):
+        self.run_command("setPlayerCmd:play:{0}".format(url))
+
     def media_pause(self):
         self.run_command("setPlayerCmd:pause")
+
+    def media_resume(self):
+        self.run_command("setPlayerCmd:resume")
+
+    def media_stop(self):
+        self.run_command("setPlayerCmd:stop")
 
     def media_toggle(self):
         self.run_command("setPlayerCmd:onepause")
@@ -84,6 +106,26 @@ class WiimDevice:
 
     def media_next(self):
         self.run_command("setPlayerCmd:next")
+
+    def media_set_position(self, position):
+        position = int(position)
+        self.run_command("setPlayerCmd:seek:{0}".format(position))
+
+    def media_skip_fow(self, step):
+        status = self.get_player_status()
+        totlen = int(status["totlen"]) / 1000
+        if totlen <= 0:
+            return
+        curpos = (int(status["offset_pts"]) / 1000) + step
+        self.media_set_position(max(0, min(totlen, curpos)))
+
+    def media_skip_back(self, step):
+        status = self.get_player_status()
+        totlen = int(status["totlen"]) / 1000
+        if totlen <= 0:
+            return
+        curpos = (int(status["offset_pts"]) / 1000) - step
+        self.media_set_position(max(0, min(totlen, curpos)))
 
     # Volume up and down
 
@@ -107,24 +149,24 @@ class WiimDevice:
 
     # Mute the volume
 
-    def mute(self):
-        self.run_command("setPlayerCmd:mute:0")
-
-    def unmute(self):
+    def mute_on(self):
         self.run_command("setPlayerCmd:mute:1")
 
-    def toggle_mute(self, status=None):
+    def mute_off(self):
+        self.run_command("setPlayerCmd:mute:0")
+
+    def mute_toggle(self, status=None):
         if status is None:
             status = self.get_player_status()
-        muted = status["mute"] == "0"
+        muted = status["mute"] == "1"
         if (muted):
-            self.unmute()
+            self.mute_off()
         else:
-            self.mute()
+            self.mute_on()
 
     # Run a Preset
 
-    def preset(self, pre_numb):
+    def set_preset(self, pre_numb):
         pre_numb = int(pre_numb)
         pre_numb = max(1,min(12,pre_numb))
         self.run_command("MCUKeyShortClick:{0}".format(pre_numb))

@@ -14,7 +14,7 @@ if wiim_ip_addr is None:
     print("You must pass the im device ip address in argument arg1")
     exit(1)
 
-wiim_device = WiimDevice(wiim_ip_addr, verbose=False)
+wiim_device = WiimDevice(wiim_ip_addr, verbose=0)
 app = Flask(__name__)
 
 # process the standard Wiim API
@@ -41,6 +41,16 @@ def media_pause():
     wiim_device.media_pause()
     return "OK"
 
+@app.route("/media/resume")
+def media_resume():
+    wiim_device.media_resume()
+    return "OK"
+
+@app.route("/media/stop")
+def media_stop():
+    wiim_device.media_stop()
+    return "OK"
+
 @app.route("/media/toggle")
 def media_toggle():
     wiim_device.media_toggle()
@@ -56,15 +66,27 @@ def media_next():
     wiim_device.media_next()
     return "OK"
 
+@app.route("/media/skipfow", defaults={"amount": 15})
+@app.route("/media/skipfow/<int:amount>")
+def media_skip_fow(amount):
+    wiim_device.media_skip_fow(amount)
+    return "OK"
+
+@app.route("/media/skipback", defaults={"amount": 15})
+@app.route("/media/skipback/<int:amount>")
+def media_skip_back(amount):
+    wiim_device.media_skip_back(amount)
+    return "OK"
+
 # volume control commands
 
-@app.route("/vol/up", defaults={"amount": 2})
+@app.route("/vol/up", defaults={"amount": 6})
 @app.route("/vol/up/<int:amount>")
 def volume_up(amount):
     wiim_device.volume_up(amount)
     return "OK"
 
-@app.route("/vol/down", defaults={"amount": 2})
+@app.route("/vol/down", defaults={"amount": 6})
 @app.route("/vol/down/<int:amount>")
 def volume_down(amount):
     wiim_device.volume_down(amount)
@@ -78,18 +100,18 @@ def volume_set(volume):
 # volume mute commands
 
 @app.route("/mute/on")
-def media_mute():
-    wiim_device.mute()
+def mute_on():
+    wiim_device.mute_on()
     return "OK"
 
 @app.route("/mute/off")
-def media_unmute():
-    wiim_device.unmute()
+def mute_off():
+    wiim_device.mute_off()
     return "OK"
 
 @app.route("/mute/toggle")
-def media_mute_toggle():
-    wiim_device.toggle_mute()
+def mute_toggle():
+    wiim_device.mute_toggle()
     return "OK"
 
 # change input commands
@@ -122,6 +144,11 @@ def media_input_phono():
 @app.route("/input/bluetooth")
 def media_input_bluetooth():
     wiim_device.set_bluetooth_in()
+    return "OK"
+
+@app.route("/input/step_in")
+def media_input_step_in():
+    wiim_device.step_in()
     return "OK"
 
 # change output commands
@@ -160,5 +187,5 @@ def media_output_dlna():
 
 @app.route("/preset/<int:pre_numb>")
 def preset_set(pre_numb):
-    wiim_device.preset(pre_numb)
+    wiim_device.set_preset(pre_numb)
     return "OK"
