@@ -66,16 +66,16 @@ def media_next():
     wiim_device.media_next()
     return "OK"
 
-@app.route("/media/skipfow", defaults={"amount": 15})
-@app.route("/media/skipfow/<int:amount>")
-def media_skip_fow(amount):
-    wiim_device.media_skip_fow(amount)
+@app.route("/media/seekfow", defaults={"amount": 15})
+@app.route("/media/seekfow/<int:amount>")
+def media_seek_fow(amount):
+    wiim_device.media_seek_fow(amount)
     return "OK"
 
-@app.route("/media/skipback", defaults={"amount": 15})
-@app.route("/media/skipback/<int:amount>")
-def media_skip_back(amount):
-    wiim_device.media_skip_back(amount)
+@app.route("/media/seekback", defaults={"amount": 15})
+@app.route("/media/seekback/<int:amount>")
+def media_seek_back(amount):
+    wiim_device.media_seek_back(amount)
     return "OK"
 
 # volume control commands
@@ -146,9 +146,9 @@ def media_input_bluetooth():
     wiim_device.set_bluetooth_in()
     return "OK"
 
-@app.route("/input/step_in")
-def media_input_step_in():
-    wiim_device.step_in()
+@app.route("/input/next-input")
+def media_input_next():
+    wiim_device.next_input()
     return "OK"
 
 # change output commands

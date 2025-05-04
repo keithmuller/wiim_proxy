@@ -48,7 +48,7 @@ class WiimDevice:
     # mimic the step input button on the remote
     # you can edit this list to only step through the inputs you have connected
 
-    def step_in(self):
+    def next_input(self):
         switch_dict = {
             10: self.set_bluetooth_in,
             41: self.set_hdmi_in,
@@ -111,7 +111,7 @@ class WiimDevice:
         position = int(position)
         self.run_command("setPlayerCmd:seek:{0}".format(position))
 
-    def media_skip_fow(self, step):
+    def media_seek_fow(self, step):
         status = self.get_player_status()
         totlen = int(status["totlen"]) / 1000
         if totlen <= 0:
@@ -119,7 +119,7 @@ class WiimDevice:
         curpos = (int(status["offset_pts"]) / 1000) + step
         self.media_set_position(max(0, min(totlen, curpos)))
 
-    def media_skip_back(self, step):
+    def media_seek_back(self, step):
         status = self.get_player_status()
         totlen = int(status["totlen"]) / 1000
         if totlen <= 0:
