@@ -102,11 +102,19 @@ http://$ip:$port/media/play
 
 http://$ip:$port/media/pause
 
+http://$ip:$port/media/resume
+
 http://$ip:$port/media/toggle
+
+http://$ip:$port/media/stop
 
 http://$ip:$port/media/prev
 
 http://$ip:$port/media/next
+
+http://$ip:$port/media/seekfow
+
+http://$ip:$port/media/seekback
 
 (***$int*** below must be between 0 and 100)
     
@@ -139,6 +147,8 @@ http://$ip:$port/input/optical
 http://$ip:$port/input/phono
 
 http://$ip:$port/input/bluetooth
+
+http://$ip:$port/input/next-input
 
 http://$ip:$port/output/optical
 
