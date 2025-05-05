@@ -8,6 +8,8 @@ as well as many of the commands described in the offical wiim http(s) interface 
 
 On the sofabaton x1s, create a wifi virtual device to connect via http to a wiim_proxy server running on a raspberry pi.
 
+See the file ***sofabaton x1s example.pdf***
+
 ***Implematition information***
 
 My wiim_proxy test/development environment is as follows:
