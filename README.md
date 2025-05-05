@@ -79,20 +79,23 @@ We use systemd to start the wiim_proxy server at boot
 
 (11) Do a reboot and try step (10) above to make sure all is well
 
-(12) Test the proxy server.
-   
-&nbsp; As an example, assume the ip where wiim_proxy is running is 10.0.1.153
-    The port number is 5050. The ip address of the wiim device is 10.0.1.103
+(12) Test the proxy server. As an example, assume:
 
-&nbsp; From any web browser (or use curl) connect to:
+&nbsp; 10.0.1.158 is the ip where wiim_proxy is running
 
-&nbsp; http://10.0.1.153:5050/input/line-in
+&nbsp; 5050 is the port number of wiim_proxy server
+
+&nbsp; 10.0.1.103 is the ip address of the wiim device in the file wiim_proxy.ini
+
+&nbsp; ***From any web browser (or use curl) connect to:***
+
+    http://10.0.1.158:5050/input/line-in
    
 &nbsp; You should get:
 
 &nbsp; ok
 
-&nbsp; in the browser.
+&nbsp; as a return value.
 
 ***End of install process***
 
