@@ -1,31 +1,32 @@
 ***wiim_proxy*** is a http proxy server that provides a http only control interface
-to a wiim device.
+to any wiim device that supports the offical http(s) interface.
 
-***Use case***: Using a sofabaton x1s to control a wiim device
+wiim_proxy supports all the controls (except the power and voice command) found on the wiim remote
+as well as many of the commands described in the offical wiim http(s) interface document.
 
-You will add the wiim device to sofabaton x1s as wifi virtual device to control a wiim
-device.
+***Example use case for this software***: Controlling a wiim device from a Sofabaton x1s.
+
+On the sofabaton x1s, create a wifi virtual device to connect via http to a wiim_proxy server running on a raspberry pi.
 
 ***Implematition information***
 
-This server uses uwsgi and is intended for use only on internal networks
-that are safely behind a firewall.
+My wiim_proxy test/development environment is as follows:
 
-This package uses systemd to start wiim_proxy at boot.
+&nbsp; (a) raspberry pi4 (or pi5) running raspios (bookworm) 64-bit to host the wiim_proxy server process.
 
-This server was tested using raspios (bookworm) 64-bit on a pi4 and pi5
+&nbsp; (b) ***wiim_ultra*** connected to a wiim vibelink.
 
-This server supports all the controls (except power) found on the wiim remote.
-It uses the published wiim http(s) interface to communicate with the wiim device
+&nbsp; (c) systemd is used to start the wiim_proxy server process on the pi5/pi4 at boot time.
 
-***Current limitations:*** Each wiim_proxy server can only control one wiim device at this time. 
+&nbsp; (d) uwsgi (alone) is used as the intended use case is an internal home network safely behind a firewall.
+
+***Current limitation:*** Each wiim_proxy server can only control one wiim device at this time. 
 Thus you would need one wiim_proxy server with a unique port number for each wiim device.
+This limitation will be looked at in the future.
 
-***This code was tested with a wiim_ultra. Other wiim_devices may need changes.***
+# How to install
 
-# How to Install
-
-(1) Examine and maybe edit the file Makefile. Pay attention to the settings at the top of the file.
+(1) Examine and maybe edit the file Makefile. Pay attention to the settings at the top of the Makefile.
 You should not need to change the values for the following:
     
 &nbsp;DESTDIR SYSMD OWNER GROUP
@@ -93,7 +94,7 @@ We use systemd to start the wiim_proxy server at boot
 
 ***End of install process***
 
-# list of commands
+# List of commands
 
 In the following list ***$ip*** is the name or ip address of the system where this
 server is running and ***$port*** is its port number ("http-socket = :5050")
@@ -116,7 +117,7 @@ http://$ip:$port/media/seekfow
 
 http://$ip:$port/media/seekback
 
-(***$int*** below must be between 0 and 100)
+***$int*** volume values below must be between 0 and 100 inclusive
     
 http://$ip:$port/vol/up
 
@@ -138,7 +139,7 @@ http://$ip:$port/input/line-in
 
 http://$ip:$port/input/wifi 
 
-(command directly above also works with ethernet connected wiims)
+***wifi above also works with ethernet connected wiims**
 
 http://$ip:$port/input/hdmi
 
@@ -162,7 +163,7 @@ http://$ip:$port/output/bluetooth
 
 http://$ip:$port/output/dlna
 
-***$int*** preset below must be between 1 and 12 inclusive
+***$int*** preset numbers below must be between 1 and 12 inclusive
 
 http://$ip:$port/preset/$int
 
