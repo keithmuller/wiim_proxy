@@ -85,13 +85,13 @@ def media_seek_back(amount):
 
 # volume control commands
 
-@app.route("/vol/up", defaults={"amount": 5})
+@app.route("/vol/up", defaults={"amount": 1})
 @app.route("/vol/up/<int:amount>")
 def volume_up(amount):
     wiim_device.volume_up(amount)
     return "OK"
 
-@app.route("/vol/down", defaults={"amount": 5})
+@app.route("/vol/down", defaults={"amount": 1})
 @app.route("/vol/down/<int:amount>")
 def volume_down(amount):
     wiim_device.volume_down(amount)
