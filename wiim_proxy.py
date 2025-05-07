@@ -8,13 +8,16 @@ from flask import Flask
 from flask import request
 from wiim_device import WiimDevice
 
-wiim_ip_addr = str(sys.argv[1])
-
-if wiim_ip_addr is None:
-    print("You must pass the im device ip address in argument arg1")
+if len(sys.argv) != 3:
+    print("Usage: wiim_proxy wiim_ip_addr verbose_mode")
     exit(1)
 
-wiim_device = WiimDevice(wiim_ip_addr, verbose=0)
+wiim_ip_addr = str(sys.argv[1])
+
+# verbose should be 0, 1, or 2
+verbose = int(sys.argv[2])
+
+wiim_device = WiimDevice(wiim_ip_addr, verbose)
 app = Flask(__name__)
 
 # process the standard Wiim API
@@ -66,12 +69,14 @@ def media_next():
     wiim_device.media_next()
     return "OK"
 
+# the amount is in seconds
 @app.route("/media/seekfow", defaults={"amount": 15})
 @app.route("/media/seekfow/<int:amount>")
 def media_seek_fow(amount):
     wiim_device.media_seek_fow(amount)
     return "OK"
 
+# the amount is in seconds
 @app.route("/media/seekback", defaults={"amount": 15})
 @app.route("/media/seekback/<int:amount>")
 def media_seek_back(amount):
@@ -80,13 +85,13 @@ def media_seek_back(amount):
 
 # volume control commands
 
-@app.route("/vol/up", defaults={"amount": 6})
+@app.route("/vol/up", defaults={"amount": 5})
 @app.route("/vol/up/<int:amount>")
 def volume_up(amount):
     wiim_device.volume_up(amount)
     return "OK"
 
-@app.route("/vol/down", defaults={"amount": 6})
+@app.route("/vol/down", defaults={"amount": 5})
 @app.route("/vol/down/<int:amount>")
 def volume_down(amount):
     wiim_device.volume_down(amount)
