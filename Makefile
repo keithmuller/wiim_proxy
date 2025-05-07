@@ -13,13 +13,14 @@ all:
 	@echo "Follow the instructions in README.md"
 
 install:
-	-sudo mkdir $(DESTDIR)
+	sudo mkdir -p $(DESTDIR)
 	sudo cp -p $(FILES) $(DESTDIR)
 	sudo chown -R $(OWNER):$(GROUP) $(DESTDIR)
 
 # The following targets only need to be run once!
 
 pkg_install:
+	sudo apt-get update
 	sudo apt-get -y install uwsgi
 	sudo apt-get -y install uwsgi-plugin-python3
 	sudo apt-get -y install python3-flask
@@ -38,4 +39,4 @@ service_stop:
 
 # only for testing when the service is not running
 test:
-	uwsgi --ini wiim_proxy.ini
+	uwsgi --ini test.ini
