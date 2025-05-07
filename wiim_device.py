@@ -108,10 +108,12 @@ class WiimDevice:
         self.run_command("setPlayerCmd:next")
 
     def media_set_position(self, position):
+        # has the side effect of resuming playback if paused
         position = int(position)
         self.run_command("setPlayerCmd:seek:{0}".format(position))
 
     def media_seek_fow(self, step):
+        self.media_pause()
         status = self.get_player_status()
         totlen = int(status["totlen"]) / 1000
         if totlen <= 0:
@@ -120,6 +122,7 @@ class WiimDevice:
         self.media_set_position(max(0, min(totlen, curpos)))
 
     def media_seek_back(self, step):
+        self.media_pause()
         status = self.get_player_status()
         totlen = int(status["totlen"]) / 1000
         if totlen <= 0:
@@ -129,9 +132,8 @@ class WiimDevice:
 
     # Volume up and down
 
-    def get_volume(self, status=None):
-        if status is None:
-            status = self.get_player_status()
+    def get_volume(self):
+        status = self.get_player_status()
         return status["vol"]
 
     def set_volume(self, volume):
@@ -155,9 +157,8 @@ class WiimDevice:
     def mute_off(self):
         self.run_command("setPlayerCmd:mute:0")
 
-    def mute_toggle(self, status=None):
-        if status is None:
-            status = self.get_player_status()
+    def mute_toggle(self):
+        status = self.get_player_status()
         muted = status["mute"] == "1"
         if (muted):
             self.mute_off()
