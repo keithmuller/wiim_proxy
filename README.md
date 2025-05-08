@@ -164,8 +164,14 @@ API command: getPlayerStatus
 
 # List of commands
 
-In the following list ***$ip*** is the name or ip address of the system where this
-server is running and ***$port*** is its port number ("http-socket = :5050")
+***TODO:*** wiim does not yet support an http api for the wiim remote power button at this time. It is expected to be added sometime in the future.
+
+In the following list of commands:
+
+&nbsp; ***$ip*** is the network name or network ip address of the system where the wiim_proxy
+server is running.
+
+&nbsp; ***$port*** is the network port number ("http-socket = :5050")
 
 http://$ip:$port/media/play
 <br>http://$ip:$port/media/pause
@@ -177,27 +183,28 @@ http://$ip:$port/media/play
 <br>http://$ip:$port/media/seekfow
 <br>http://$ip:$port/media/seekback
 
-***$int*** volume values below must be between 0 and 100 inclusive
+**$int volume values below must be between 0 and 100 inclusive**
     
 http://$ip:$port/vol/up
 <br>http://$ip:$port/vol/up/$int
 <br>http://$ip:$port/vol/down
 <br>http://$ip:$port/vol/down/$int
 <br>http://$ip:$port/vol/$int
-<br>http://$ip:$port/mute/on
+
+http://$ip:$port/mute/on
 <br>http://$ip:$port/mute/off
 <br>http://$ip:$port/mute/toggle
-<br>http://$ip:$port/input/line-in
+
+**wifi command  also works with ethernet connected wiims**
 <br>http://$ip:$port/input/wifi 
-
-***wifi above also works with ethernet connected wiims**
-
-http://$ip:$port/input/hdmi
+<br>http://$ip:$port/input/line-in
+<br>http://$ip:$port/input/hdmi
 <br>http://$ip:$port/input/optical
 <br>http://$ip:$port/input/phono
 <br>http://$ip:$port/input/bluetooth
 <br>http://$ip:$port/input/next-input
-<br>http://$ip:$port/output/optical
+
+http://$ip:$port/output/optical
 <br>http://$ip:$port/output/line-out
 <br>http://$ip:$port/output/coax
 <br>http://$ip:$port/output/headphone
