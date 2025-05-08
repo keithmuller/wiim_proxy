@@ -1,3 +1,5 @@
+# Summary
+
 ***wiim_proxy*** is a http proxy server that provides a http only control interface
 to any wiim device that supports the offical http(s) interface.
 
@@ -106,7 +108,8 @@ We use systemd to start the wiim_proxy server at boot
 
 ***End of install process***
 
-***Debugging***
+# Debugging
+
 You can run wiim_proxy in debug mode with verbose enabled to make sure it is sending the expected commands to the wiim device.
 
 Debugging is best done by running wiim_proxy directly from the command line so you can see each command being sent.
