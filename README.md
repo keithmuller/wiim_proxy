@@ -16,7 +16,7 @@ See the file ***sofabaton x1s example.pdf***
 
 My wiim_proxy test/development environment is as follows:
 
-&nbsp; (a) raspberry pi4 (or pi5) running raspios (bookworm) 64-bit to host the wiim_proxy server process.
+&nbsp; (a) Any server running a recent release of linux (most distributions) to host the wiim_proxy server process. This software was developed and tested on a raspberry pi4 (and pi5) running raspios (bookworm) 64-bit. wiim_proxy code  should be able to run on a windows or apple system, but the install process would clearly have to be changed.
 
 &nbsp; (b) ***wiim_ultra*** connected to a wiim vibelink.
 
