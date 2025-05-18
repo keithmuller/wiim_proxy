@@ -11,6 +11,8 @@ class WiimDevice:
         self.ip = ip
         self.verbose = verbose
 
+    # Send the command to the wiim device
+
     def run_command(self, command):
         url = "https://%s/httpapi.asp?command=%s" % (self.ip, command)
         response = requests.get(url, verify=False)
@@ -19,6 +21,8 @@ class WiimDevice:
         if self.verbose == 2:
             print("API command: {0}, got {1}".format(command, response.text))
         return response.text
+
+    # Get Current Status
 
     def get_player_status(self):
         text = self.run_command("getPlayerStatus")
@@ -47,8 +51,16 @@ class WiimDevice:
 
     # mimic the step input button on the remote
     # you can edit this list to only step through the inputs you have connected
+    # Mode values:
+    #            10: Ethernet/wifi
+    #            41: Bluetooth
+    #            49: HDMI
+    #            40: Line In (AUX)
+    #            43: Optical In
+    #            54: Phono In
 
     def next_input(self):
+        # Next input command table: current input: switch to next input
         switch_dict = {
             10: self.set_bluetooth_in,
             41: self.set_hdmi_in,
@@ -59,6 +71,8 @@ class WiimDevice:
         }
         status = self.get_player_status()
         mode = int(status["mode"])
+
+        # Step to next input, if not specified in dict, go to wifi/ethernet
         switch_dict.get(mode, self.set_wifi_in)()
 
     # Change output
