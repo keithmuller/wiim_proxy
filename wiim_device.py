@@ -65,9 +65,7 @@ class WiimDevice:
             10: self.set_bluetooth_in,
             41: self.set_hdmi_in,
             49: self.set_line_in,
-            40: self.set_optical_in,
-            43: self.set_phono_in,
-            54: self.set_wifi_in
+            40: self.set_wifi_in
         }
         status = self.get_player_status()
         mode = int(status["mode"])
@@ -178,6 +176,20 @@ class WiimDevice:
             self.mute_off()
         else:
             self.mute_on()
+
+    # LED and Display commands
+
+    def led_off(self):
+        self.run_command("LED_SWITCH_SET:0")
+
+    def led_on(self):
+        self.run_command("LED_SWITCH_SET:1")
+
+    def display_off(self):
+        self.run_command("setLightOperationsBrightConfig:disable:1")
+
+    def display_on(self):
+        self.run_command("setLightOperationsBrightConfig:disable:0")
 
     # Run a Preset
 

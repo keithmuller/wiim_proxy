@@ -188,6 +188,28 @@ def media_output_dlna():
     wiim_device.set_dlna_out()
     return "OK"
 
+# LED and Display Commands
+
+@app.route("/led/off")
+def led_off():
+    wiim_device.led_off()
+    return "OK"
+
+@app.route("/led/on")
+def led_on():
+    wiim_device.led_on()
+    return "OK"
+
+@app.route("/display/off")
+def display_off():
+    wiim_device.display_off()
+    return "OK"
+
+@app.route("/display/on")
+def display_on():
+    wiim_device.display_on()
+    return "OK"
+
 # run a preset
 
 @app.route("/preset/<int:pre_numb>")
