@@ -215,7 +215,7 @@ http://$ip:$port/output/optical
 <br>http://$ip:$port/output/dlna
 
 **status led and wiim ultra display on/off commands**
-http://$ip:$port/led/off
+<br>http://$ip:$port/led/off
 <br>http://$ip:$port/led/on
 <br>http://$ip:$port/display/off
 <br>http://$ip:$port/display/on
