@@ -198,7 +198,7 @@ http://$ip:$port/mute/on
 <br>http://$ip:$port/mute/off
 <br>http://$ip:$port/mute/toggle
 
-**wifi command  also works with ethernet connected wiims**
+**wifi command also works with ethernet connected wiims**
 <br>http://$ip:$port/input/wifi 
 <br>http://$ip:$port/input/line-in
 <br>http://$ip:$port/input/hdmi
@@ -213,6 +213,12 @@ http://$ip:$port/output/optical
 <br>http://$ip:$port/output/headphone
 <br>http://$ip:$port/output/bluetooth
 <br>http://$ip:$port/output/dlna
+
+**status led and wiim ultra display on/off commands**
+http://$ip:$port/led/off
+<br>http://$ip:$port/led/on
+<br>http://$ip:$port/display/off
+<br>http://$ip:$port/display/on
 
 ***$int*** preset numbers below must be between 1 and 12 inclusive
 
