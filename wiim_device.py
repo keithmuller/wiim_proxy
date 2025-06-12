@@ -186,10 +186,10 @@ class WiimDevice:
         self.run_command("LED_SWITCH_SET:1")
 
     def display_off(self):
-        self.run_command("setLightOperationsBrightConfig:disable:1")
+        self.run_command("setLightOperationBrightConfig:{%22disable%22:1}")
 
     def display_on(self):
-        self.run_command("setLightOperationsBrightConfig:disable:0")
+        self.run_command("setLightOperationBrightConfig:{%22disable%22:0}")
 
     # Run a Preset
 
