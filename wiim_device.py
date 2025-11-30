@@ -131,7 +131,7 @@ class WiimDevice:
         if totlen <= 0:
             return
     
-        curpos = (int(status["offset_pts"]) / 1000) + step
+        curpos = (int(status["curpos"]) / 1000) + step
         self.media_set_position(max(0, min(totlen, curpos)))
         
         if was_playing:
@@ -144,7 +144,7 @@ class WiimDevice:
         if totlen <= 0:
             return
 
-        curpos = (int(status["offset_pts"]) / 1000) - step
+        curpos = (int(status["curpos"]) / 1000) - step
         self.media_set_position(max(0, min(totlen, curpos)))
         
         if was_playing:
