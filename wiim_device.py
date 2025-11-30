@@ -125,22 +125,30 @@ class WiimDevice:
         self.run_command("setPlayerCmd:seek:{0}".format(position))
 
     def media_seek_fow(self, step):
-        self.media_pause()
         status = self.get_player_status()
+        was_playing = status["status"] == "play"
         totlen = int(status["totlen"]) / 1000
         if totlen <= 0:
             return
+    
         curpos = (int(status["offset_pts"]) / 1000) + step
         self.media_set_position(max(0, min(totlen, curpos)))
+        
+        if was_playing:
+            self.media_resume()
 
     def media_seek_back(self, step):
-        self.media_pause()
         status = self.get_player_status()
+        was_playing = status["status"] == "play"
         totlen = int(status["totlen"]) / 1000
         if totlen <= 0:
             return
+
         curpos = (int(status["offset_pts"]) / 1000) - step
         self.media_set_position(max(0, min(totlen, curpos)))
+        
+        if was_playing:
+            self.media_resume()
 
     # Volume up and down
 
