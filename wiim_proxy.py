@@ -70,16 +70,16 @@ def media_next():
     return "OK"
 
 # the amount is in seconds
-@app.route("/media/seekfow", defaults={"amount": 15})
+@app.route("/media/seekfow")
 @app.route("/media/seekfow/<int:amount>")
-def media_seek_fow(amount):
+def media_seek_fow(amount=15):
     wiim_device.media_seek_fow(amount)
     return "OK"
 
 # the amount is in seconds
-@app.route("/media/seekback", defaults={"amount": 15})
+@app.route("/media/seekback")
 @app.route("/media/seekback/<int:amount>")
-def media_seek_back(amount):
+def media_seek_back(amount=15):
     wiim_device.media_seek_back(amount)
     return "OK"
 
