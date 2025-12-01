@@ -16,7 +16,7 @@ See the file ***sofabaton x1s example.pdf***
 
 My wiim_proxy test/development environment is as follows:
 
-&nbsp; (a) Any server running a recent release of linux (most distributions) to host the wiim_proxy server process. This software was developed and tested on a raspberry pi4 (and pi5) running raspios (bookworm) 64-bit. wiim_proxy code  should be able to run on a windows or apple system, but the install process would clearly have to be changed.
+&nbsp; (a) Any server running a recent release of linux (most distributions) to host the wiim_proxy server process. This software was developed and tested on a raspberry pi4 (and pi5) running raspios (bookworm and trixie) 64-bit. wiim_proxy code should be able to run on a windows or apple system, but the install process would clearly have to be changed.
 
 &nbsp; (b) ***wiim_ultra*** connected to a wiim vibelink.
 
@@ -26,7 +26,7 @@ My wiim_proxy test/development environment is as follows:
 
 ***Current limitation:*** Each wiim_proxy server can only control one wiim device at this time. 
 Thus you would need one wiim_proxy server with a unique port number for each wiim device.
-This limitation will be looked at in the future.
+This limitation will be removed in the future.
 
 # How to install
 
@@ -176,7 +176,8 @@ server is running.
 
 &nbsp; ***$port*** is the network port number ("http-socket = :5050")
 
-http://$ip:$port/media/play
+***media control***
+<br>http://$ip:$port/media/play
 <br>http://$ip:$port/media/pause
 <br>http://$ip:$port/media/resume
 <br>http://$ip:$port/media/toggle
@@ -187,17 +188,25 @@ http://$ip:$port/media/play
 <br>http://$ip:$port/media/seekback
 
 **$int volume values below must be between 0 and 100 inclusive**
-    
-http://$ip:$port/vol/up
+<br>**if $int is not specified the default is 1**
+<br>http://$ip:$port/vol/up
 <br>http://$ip:$port/vol/up/$int
 <br>http://$ip:$port/vol/down
 <br>http://$ip:$port/vol/down/$int
+
+**set volume to the specified value***
 <br>http://$ip:$port/vol/$int
 
-http://$ip:$port/mute/on
+**auto-increment up/down volume by 1***
+<br>http://$ip:$port/vol/++
+<br>http://$ip:$port/vol/--
+
+***volume mute***
+<br>http://$ip:$port/mute/on
 <br>http://$ip:$port/mute/off
 <br>http://$ip:$port/mute/toggle
 
+***Specify input***
 **wifi command also works with ethernet connected wiims**
 <br>http://$ip:$port/input/wifi 
 <br>http://$ip:$port/input/line-in
@@ -207,24 +216,24 @@ http://$ip:$port/mute/on
 <br>http://$ip:$port/input/bluetooth
 <br>http://$ip:$port/input/next-input
 
-http://$ip:$port/output/optical
+***Specify output***
+<br>http://$ip:$port/output/optical
 <br>http://$ip:$port/output/line-out
 <br>http://$ip:$port/output/coax
 <br>http://$ip:$port/output/headphone
 <br>http://$ip:$port/output/bluetooth
 <br>http://$ip:$port/output/dlna
 
-**status led and wiim ultra display on/off commands**
+**status led and wiim ultra display on/off**
 <br>http://$ip:$port/led/off
 <br>http://$ip:$port/led/on
 <br>http://$ip:$port/display/off
 <br>http://$ip:$port/display/on
 
-***$int*** preset numbers below must be between 1 and 12 inclusive
+**Run a preset command**
+<br>***$int*** preset numbers below must be between 1 and 12 inclusive
+<br>http://$ip:$port/preset/$int
 
-http://$ip:$port/preset/$int
-
-wiim_proxy is backwards compatible with the published Wiim API.
-
-http://$ip:$port/httpapi.asp?command=$command
+***wiim_proxy is backwards compatible with the published Wiim API shown below***
+<br>http://$ip:$port/httpapi.asp?command=$command
 <br>http://$ip:$port/command/$command
