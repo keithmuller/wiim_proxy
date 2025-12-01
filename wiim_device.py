@@ -7,7 +7,7 @@ import urllib3
 urllib3.disable_warnings()
 
 class WiimDevice:
-    def __init__(self, ip, verbose=0):
+    def __init__(self, ip, verbose = 0):
         self.ip = ip
         self.verbose = verbose
 
@@ -60,7 +60,7 @@ class WiimDevice:
     #            54: Phono In
 
     def next_input(self):
-        # Next input command table: current input: switch to next input
+        # Next input command table: current input: next input to switch to
         switch_dict = {
             10: self.set_bluetooth_in,
             41: self.set_hdmi_in,
@@ -120,13 +120,11 @@ class WiimDevice:
         self.run_command("setPlayerCmd:next")
 
     def media_set_position(self, position):
-        # has the side effect of resuming playback if paused
         position = int(position)
         self.run_command("setPlayerCmd:seek:{0}".format(position))
 
     def media_seek_fow(self, step):
         status = self.get_player_status()
-        was_playing = status["status"] == "play"
         totlen = int(status["totlen"]) / 1000
         if totlen <= 0:
             return
@@ -134,12 +132,11 @@ class WiimDevice:
         curpos = (int(status["curpos"]) / 1000) + step
         self.media_set_position(max(0, min(totlen, curpos)))
         
-        if was_playing:
+        if status["status"] == "play":
             self.media_resume()
 
     def media_seek_back(self, step):
         status = self.get_player_status()
-        was_playing = status["status"] == "play"
         totlen = int(status["totlen"]) / 1000
         if totlen <= 0:
             return
@@ -147,7 +144,7 @@ class WiimDevice:
         curpos = (int(status["curpos"]) / 1000) - step
         self.media_set_position(max(0, min(totlen, curpos)))
         
-        if was_playing:
+        if status["status"] == "play":
             self.media_resume()
 
     # Volume up and down
@@ -169,6 +166,14 @@ class WiimDevice:
         volume = int(self.get_volume())
         self.set_volume(volume - step)
 
+    # Volume auto-increment by 1 up/down (undocumented wiim command)
+
+    def volume_plus(self):
+        self.run_command("setPlayerCmd:vol%2b%2b")
+
+    def volume_minus(self):
+        self.run_command("setPlayerCmd:vol--")
+
     # Mute the volume
 
     def mute_on(self):
@@ -179,8 +184,7 @@ class WiimDevice:
 
     def mute_toggle(self):
         status = self.get_player_status()
-        muted = status["mute"] == "1"
-        if (muted):
+        if status["mute"] == "1":
             self.mute_off()
         else:
             self.mute_on()
