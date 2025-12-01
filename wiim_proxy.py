@@ -69,37 +69,50 @@ def media_next():
     wiim_device.media_next()
     return "OK"
 
-# the amount is in seconds
+# media seek commands
+# amount is in seconds, default is 15 seconds
 @app.route("/media/seekfow")
 @app.route("/media/seekfow/<int:amount>")
-def media_seek_fow(amount=15):
+def media_seek_fow(amount = 15):
     wiim_device.media_seek_fow(amount)
     return "OK"
 
-# the amount is in seconds
 @app.route("/media/seekback")
 @app.route("/media/seekback/<int:amount>")
-def media_seek_back(amount=15):
+def media_seek_back(amount = 15):
     wiim_device.media_seek_back(amount)
     return "OK"
 
 # volume control commands
+# amount is in seconds, default is 1 second
 
-@app.route("/vol/up", defaults={"amount": 1})
+@app.route("/vol/up")
 @app.route("/vol/up/<int:amount>")
-def volume_up(amount):
+def volume_up(amount = 1):
     wiim_device.volume_up(amount)
     return "OK"
 
-@app.route("/vol/down", defaults={"amount": 1})
+@app.route("/vol/down")
 @app.route("/vol/down/<int:amount>")
-def volume_down(amount):
+def volume_down(amount = 1):
     wiim_device.volume_down(amount)
     return "OK"
 
 @app.route("/vol/<int:volume>")
 def volume_set(volume):
     wiim_device.set_volume(volume)
+    return "OK"
+
+# volume increment by 1 commands (using undocumented wiim command)
+# these commands may be faster for volume increment by 1
+@app.route("/vol/++")
+def volume_plus():
+    wiim_device.volume_plus()
+    return "OK"
+
+@app.route("/vol/--")
+def volume_minus():
+    wiim_device.volume_minus()
     return "OK"
 
 # volume mute commands
