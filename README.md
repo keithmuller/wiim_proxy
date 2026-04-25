@@ -13,6 +13,7 @@ as well as many of the commands described in the offical wiim http(s) interface 
 See the file ***sofabaton x1s example.pdf***
 
 (2) Use a flirc usb IR receiver (www.flirc.tv), the triggerhappy daemon (THD) and curl on a raspberry pi to integrate any IR remote.
+
 ***TODO:*** create a how to for triggerhappy interface; investigate eliminating the use of curl with triggerhappy
 
 ***Implementation information***
