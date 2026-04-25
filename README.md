@@ -8,11 +8,14 @@ as well as many of the commands described in the offical wiim http(s) interface 
 
 ***Example use case for this software***: Controlling a wiim device from a Sofabaton x1s.
 
-On the sofabaton x1s, create a wifi virtual device to connect via http to a wiim_proxy server running on a raspberry pi.
+(1) On the sofabaton x1s, create a wifi virtual device to connect via http to a wiim_proxy server running on a raspberry pi.
 
 See the file ***sofabaton x1s example.pdf***
 
-***Implematition information***
+(2) Use a flirc usb IR receiver (www.flirc.tv), the triggerhappy daemon (THD) and curl on a raspberry pi to integrate any IR remote.
+***TODO:*** create a how to for triggerhappy interface; investigate eliminating the use of curl with triggerhappy
+
+***Implementation information***
 
 My wiim_proxy test/development environment is as follows:
 
@@ -167,7 +170,7 @@ API command: getPlayerStatus
 
 # List of commands
 
-***TODO:*** wiim does not yet support an http api for the wiim remote power button at this time. It is expected to be added sometime in the future.
+***TODO:*** wiim does not yet support a http api for the wiim remote power button at this time. It is expected to be added sometime in the future.
 
 In the following list of commands:
 
